@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Text Animation</title>
+  <style>
+    body {
+      background-color: #111;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+    }
+
+    .glowing-text {
+      font-size: 48px;
+      color: transparent;
+      display: flex;
+      overflow: hidden;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .glowing-letter {
+      font-weight: bold;
+      animation: glow 4s infinite alternate;
+      margin-right: 5px;
+      text-shadow: 0 0 10px #111;
+      animation-timing-function: linear;
+    }
+
+    @keyframes glow {
+      0%, 100% {
+        color: transparent;
+        text-shadow: 0 0 10px #111;
+      }
+      50% {
+        color: #fff;
+        text-shadow: 0 0 20px #111, 0 0 30px #111;
+      }
+    }
+
+    .glowing-letter.hide {
+      visibility: hidden;
+    }
+
+    .button-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cool-button {
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #00f;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .cool-button:hover {
+      background-color: #007acc;
+    }
+
+    .cool-button:active {
+      transform: translateY(2px);
+    }
+
+    /* Media queries untuk layar yang lebih kecil */
+    @media screen and (max-width: 600px) {
+      .glowing-text {
+        font-size: 24px; /* Atur ukuran teks yang sesuai untuk perangkat mobile */
+      }
+
+      .cool-button {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="glowing-text" id="glowingText">
+    HADIAH UNTUK RAKA
+  </div>
+
+  <div class="button-container">
+    <a href="flower.html">
+      <button class="cool-button" onclick="animateButton()">Click Me!</button>
+    </a>
+  </div>
+
+  <script>
+    var glowingText = document.getElementById('glowingText');
+    var textArray = glowingText.textContent.split('');
+
+    glowingText.textContent = '';
+
+    textArray.forEach(function(char, index) {
+      var charSpan = document.createElement('span');
+      charSpan.textContent = char;
+      charSpan.classList.add('glowing-letter');
+      charSpan.style.animationDelay = (index * 0.2) + 's';
+      glowingText.appendChild(charSpan);
+    });
+
+    function animateButton() {
+      var button = document.querySelector('.cool-button');
+      button.style.animation = 'buttonGlow 1s ease';
+      setTimeout(function() {
+        button.style.animation = '';
+      }, 1000);
+    }
+  </script>
+</body>
+</html>
